@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LearnJsApp</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+  <template id="code-section-template">
+    <span class="remove">X</span>
+    <textarea class="input"></textarea><br>
+    <button class="evaluate">Evaluate</button>
+    <div class="output" style="display:none">
+      <div class="output-heading">Output:</div>
+      <div class="output-body"></div>
+    </div>
+  </template>
+
+  <template id="note-template">
+    <span class="remove">X</span>
+    <p class="note">{{ content }}</p>
+  </template>
+
+  <template id="edit-note-template">
+    <span class="remove">X</span>
+    <textarea class="edit-note">{{content}}</textarea>
+    <button class="save">Save</button>
+  </template>
+
+</head>
+<body>
+
+<h1>Learn JS</h1>
+
+<div id="container">
+  <div class="notebook"></div>
+  <div class="controls">
+    <button class="new-code-section">+ Code</button>
+    <button class="new-note-section">+ Note</button>
+  </div>
+</div>
+
+</body>
+</html>
