@@ -1,4 +1,5 @@
 var NotebookView = Backbone.View.extend({
+
   addCodeSection: function() {
 
     var codeView = new CodeView();
@@ -23,5 +24,18 @@ var NotebookView = Backbone.View.extend({
   events: {
     'click .new-code-section': 'addCodeSection',
     'click .new-note-section': 'addNoteSection'
+  },
+
+  listen: function() {
+    window.addEventListener('keypress', this.shortcut.bind(this));
+  },
+
+  shortcut: function(e) {
+    if (String.fromCharCode(e.keyCode) === "C") {
+      this.addCodeSection();
+    } else if (String.fromCharCode(e.keyCode) === "N") {
+      this.addNoteSection();
+    }
   }
+
 });

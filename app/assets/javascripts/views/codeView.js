@@ -53,6 +53,7 @@ var CodeView = Backbone.View.extend({
       this.evaluate();
       e.preventDefault();
     }
+    e.stopPropagation();
   }
 
 });

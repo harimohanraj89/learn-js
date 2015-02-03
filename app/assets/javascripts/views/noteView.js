@@ -29,6 +29,9 @@ var NoteView = Backbone.View.extend({
 
   save: function() {
     this.content = this.$('.edit-note').val();
+    if (this.content === '') {
+      this.content = "This is a new note."
+    }
     this.render();
   },
 
@@ -43,6 +46,7 @@ var NoteView = Backbone.View.extend({
       this.save();
       e.preventDefault();
     }
+    e.stopPropagation();
   }
 
 });

@@ -140,3 +140,11 @@ button:focus { outline: none; }
 
   background: white;
 }
+
+.note-section .cancel {
+  background: #777;
+  color: #222;
+}
+
+.note-section .cancel:hover { color: white; }
+.note-section .cancel:active { background: #666; color:white; }
