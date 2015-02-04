@@ -28,10 +28,66 @@
     <button class="cancel">Cancel</button>
   </template>
 
+  <template id="how-to-template">
+    <p>
+      Use the <span class="pre">+Code</span> and
+      <span class="pre">+Note</span> buttons to create code sections or note
+      sections.
+    </p>
+
+    <p>
+      Write your JS code into the text area of code sections. Evaluate your
+      code by clicking <span class="pre">Evaluate</span>. Use the
+      <span class="pre">this.p()</span> function to print results to the code
+      section's output. Yes, this is terrible, but we will fix it.
+    </p>
+
+    <p>
+      Click on a note section to edit it. Save or cancel your changes.
+    </p>
+
+    <p>
+      There are also several keyboard shortcuts available.
+    </p>
+  </template>
+
+    <template id="key-bindings-template">
+
+      <table class="key-bindings-table">
+        <tbody>
+          <tr>
+            <td><span class="pre">Shift-C</span></td>
+            <td>New Code Section</td>
+          </tr>
+          <tr>
+            <td><span class="pre">Shift-N</span></td>
+            <td>New Note Section</td>
+          </tr>
+          <tr>
+            <td><span class="pre">Shift-Enter</span></td>
+            <td>Evaluate Code / Save Note</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </template>
+
 </head>
 <body>
 
 <h1>Learn JS</h1>
+<div id="hud">
+  <li class="show-instructions">Instructions</li>
+  <div class="instructions">
+    <div class="inner-modal">
+      <div class="tabs">
+        <li class="show-how-to">How To</li>
+        <li class="show-key-bindings">Key Bindings</li>
+      </div>
+      <div class="content"></div>
+    </div>
+  </div>
+</div>
 
 <div id="container">
   <div class="notebook"></div>

@@ -21,6 +21,6 @@
 
 $(function() {
   console.log("Loaded, bro.");
-  var notebookView = new NotebookView({ el: '#container' });
-  notebookView.listen();
+  (new NotebookView({ el: '#container' })).listen();
+  new HudView({ el: '#hud' });
 });

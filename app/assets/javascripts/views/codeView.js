@@ -6,6 +6,7 @@ var CodeView = Backbone.View.extend({
 
   initialize: function() {
     this.template = Handlebars.compile($("#code-section-template").html());
+    this.content = this.defaultContent();
     this.render();
   },
 
@@ -35,7 +36,7 @@ var CodeView = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(this.template());
+    this.$el.html(this.template({ content: this.content }));
   },
 
   focus: function() {
@@ -54,6 +55,10 @@ var CodeView = Backbone.View.extend({
       e.preventDefault();
     }
     e.stopPropagation();
+  },
+
+  defaultContent: function() {
+    return 'this.p("Hello there.")';
   }
 
 });

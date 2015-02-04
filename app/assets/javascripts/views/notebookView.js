@@ -20,7 +20,6 @@ var NotebookView = Backbone.View.extend({
 
   },
 
-
   events: {
     'click .new-code-section': 'addCodeSection',
     'click .new-note-section': 'addNoteSection'
