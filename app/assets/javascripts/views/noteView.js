@@ -15,6 +15,7 @@ var NoteView = Backbone.View.extend({
     'click .remove': 'removeSelf',
     'click .note': 'edit',
     'click .save': 'save',
+    'click .cancel': 'cancel',
     'keypress .edit-note': 'shortcut'
   },
 
@@ -32,6 +33,10 @@ var NoteView = Backbone.View.extend({
     if (this.content === '') {
       this.content = "This is a new note."
     }
+    this.render();
+  },
+
+  cancel: function() {
     this.render();
   },
 
