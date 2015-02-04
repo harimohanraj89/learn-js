@@ -4,7 +4,8 @@ var HudView = Backbone.View.extend({
     this.templates = {
       howTo: Handlebars.compile($('#how-to-template').html()),
       keyBindings: Handlebars.compile($('#key-bindings-template').html())
-    }
+    };
+    this.listen();
     this.renderHowTo();
   },
 
@@ -26,6 +27,14 @@ var HudView = Backbone.View.extend({
 
   doNothing: function(e) {
     e.stopPropagation();
+  },
+
+  listen: function(e) {
+    window.addEventListener('keydown', function(e) {
+      if (e.which === 27) {
+        this.hideInstructions();
+      }
+    }.bind(this));
   },
 
   renderHowTo: function() {

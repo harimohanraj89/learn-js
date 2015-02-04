@@ -16,7 +16,7 @@ var NoteView = Backbone.View.extend({
     'click .note': 'edit',
     'click .save': 'save',
     'click .cancel': 'cancel',
-    'keypress .edit-note': 'shortcut'
+    'keydown .edit-note': 'shortcut'
   },
 
   render: function() {
@@ -49,6 +49,9 @@ var NoteView = Backbone.View.extend({
   shortcut: function(e) {
     if (e.shiftKey && e.which === 13) {
       this.save();
+      e.preventDefault();
+    } else if (e.which === 27) {
+      this.cancel();
       e.preventDefault();
     }
     e.stopPropagation();
