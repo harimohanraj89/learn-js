@@ -5,7 +5,7 @@ var NoteView = Backbone.View.extend({
   className: 'note-section section',
 
   initialize: function() {
-    this.content = "This is a new note.";
+    this.model = new Section({ contentType: 'note' });
     this.template = Handlebars.compile($('#note-template').html());
     this.editTemplate = Handlebars.compile($('#edit-note-template').html());
     this.render();
@@ -20,7 +20,7 @@ var NoteView = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(this.template({ content: this.content }));
+    this.$el.html(this.template(this.model.toJSON()));
   },
 
   edit: function() {

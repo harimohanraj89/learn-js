@@ -6,7 +6,7 @@ var CodeView = Backbone.View.extend({
 
   initialize: function() {
     this.template = Handlebars.compile($("#code-section-template").html());
-    this.content = this.defaultContent();
+    this.model = new Section({ sectionType: 'code' });
     this.render();
   },
 
@@ -36,7 +36,7 @@ var CodeView = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(this.template({ content: this.content }));
+    this.$el.html(this.template(this.model.toJSON()));
   },
 
   focus: function() {
