@@ -8,7 +8,7 @@ var Section = Backbone.Model.extend({
     if (type === 'note') {
       this.set('content', 'This is a new note.');
     } else if (type === 'code') {
-      this.set('content', 'this.p("Hello, world!")');
+      this.set('content', 'this.p("Hello, world!");');
     }
   }
 });
