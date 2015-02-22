@@ -23,6 +23,11 @@
 
 $(function() {
   console.log("Loaded, bro.");
-  (new NotebookView({ el: '#container' })).listen();
+  sections = new SectionsCollection();
+
+  (new NotebookView({ el: '#container', collection: sections })).listen();
   new HudView({ el: '#hud' });
+
+  sections.fetch({ reset: true });
+
 });

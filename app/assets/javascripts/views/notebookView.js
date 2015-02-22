@@ -1,23 +1,16 @@
 var NotebookView = Backbone.View.extend({
 
+  initialize: function() {
+    this.listenTo(this.collection, 'add', this.renderOne);
+    this.listenTo(this.collection, 'reset', this.render);
+  },
+
   addCodeSection: function() {
-
-    var codeView = new CodeView();
-    codeView.$el
-              .hide()
-              .appendTo(this.$('.notebook'))
-              .slideDown(500, codeView.focus.bind(codeView));
-
+    this.collection.create({ sectionType: 'code' });
   },
 
   addNoteSection: function() {
-
-    var noteView = new NoteView();
-    noteView.$el
-              .hide()
-              .appendTo(this.$('.notebook'))
-              .slideDown(500);
-
+    this.collection.create({ sectionType: 'note' });
   },
 
   events: {
@@ -34,6 +27,36 @@ var NotebookView = Backbone.View.extend({
       this.addCodeSection();
     } else if (String.fromCharCode(e.keyCode) === "N") {
       this.addNoteSection();
+    }
+  },
+
+  render: function() {  
+    this.collection.forEach(this.quickRenderOne);
+  },
+
+  quickRenderOne: function(section) {
+    if (section.get('sectionType') === 'note') {
+      var noteView = new NoteView({ model: section });
+      noteView.$el.appendTo(this.$('.notebook'))
+    } else if (section.get('sectionType') === 'code') {
+      var codeView = new CodeView({ model: section });
+      codeView.$el.appendTo(this.$('.notebook'))
+    }
+  },
+
+  renderOne: function(section) {
+    if (section.get('sectionType') === 'note') {
+      var noteView = new NoteView({ model: section });
+      noteView.$el
+                .hide()
+                .appendTo(this.$('.notebook'))
+                .slideDown(500);
+    } else if (section.get('sectionType') === 'code') {
+      var codeView = new CodeView({ model: section });
+      codeView.$el
+                .hide()
+                .appendTo(this.$('.notebook'))
+                .slideDown(500, codeView.focus.bind(codeView));
     }
   }
 

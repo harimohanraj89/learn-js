@@ -5,7 +5,6 @@ var NoteView = Backbone.View.extend({
   className: 'note-section section',
 
   initialize: function() {
-    this.model = new Section({ contentType: 'note' });
     this.template = Handlebars.compile($('#note-template').html());
     this.editTemplate = Handlebars.compile($('#edit-note-template').html());
     this.render();
@@ -24,15 +23,12 @@ var NoteView = Backbone.View.extend({
   },
 
   edit: function() {
-    this.$el.html(this.editTemplate({ content: this.content }));
+    this.$el.html(this.editTemplate(this.model.toJSON()));
     this.$('.edit-note').focus();
   },
 
   save: function() {
-    this.content = this.$('.edit-note').val();
-    if (this.content === '') {
-      this.content = "This is a new note."
-    }
+    this.model.save({ content: this.$('.edit-note').val() || this.model.initialize() });
     this.render();
   },
 

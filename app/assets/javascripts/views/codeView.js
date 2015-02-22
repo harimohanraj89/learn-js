@@ -6,13 +6,13 @@ var CodeView = Backbone.View.extend({
 
   initialize: function() {
     this.template = Handlebars.compile($("#code-section-template").html());
-    this.model = new Section({ sectionType: 'code' });
+    this.listenTo(this.model, 'destroy', this.removeSelf);
     this.render();
   },
 
   events: {
     'click .evaluate': 'evaluate',
-    'click .remove': 'removeSelf',
+    'click .remove': 'destroy',
     'keypress .input': 'shortcut'
   },
 
@@ -22,6 +22,7 @@ var CodeView = Backbone.View.extend({
 
   evaluate: function() {
     this.$('.output-body').html('');
+    this.model.save({ content: this.code() });
     try {
       eval(this.code());
     } catch (e) {
@@ -33,6 +34,11 @@ var CodeView = Backbone.View.extend({
 
   p: function(something) {
     this.$('.output-body').append($('<li>').html(something));
+  },
+
+  destroy: function() {
+    console.log(this.model.toJSON());
+    this.model.destroy();
   },
 
   render: function() {

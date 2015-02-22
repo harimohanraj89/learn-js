@@ -1,3 +1,4 @@
 var SectionsCollection = Backbone.Collection.extend({
-  model: Section
+  model: Section,
+  url: '/sections'
 });
