@@ -25,9 +25,15 @@ $(function() {
   console.log("Loaded, bro.");
   sections = new SectionsCollection();
 
-  (new NotebookView({ el: '#container', collection: sections })).listen();
+  (new NotebookView({ el: '#container', collection: sections })).keyListen();
   new HudView({ el: '#hud' });
 
-  sections.fetch({ reset: true });
+  sections
+   .fetch({ reset: true })
+   .done((function(models) {
+      if (this.at(0)) {
+        this.at(0).set('active', true);
+      }
+    }).bind(sections));
 
 });

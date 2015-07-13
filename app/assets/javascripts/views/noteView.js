@@ -7,6 +7,7 @@ var NoteView = Backbone.View.extend({
   initialize: function() {
     this.template = Handlebars.compile($('#note-template').html());
     this.editTemplate = Handlebars.compile($('#edit-note-template').html());
+    this.listenTo(this.model, 'change:active', this.render);
     this.render();
   },
 
@@ -15,15 +16,20 @@ var NoteView = Backbone.View.extend({
     'click .note': 'edit',
     'click .save': 'save',
     'click .cancel': 'cancel',
+    'click .handle': 'activate',
     'keydown .edit-note': 'shortcut'
   },
 
   render: function() {
-    this.$el.html(this.template(this.model.toJSON()));
+    var data = this.model.toJSON();
+    data.handle_class = this.model.get('active') ? 'handle active' : 'handle';
+    this.$el.html(this.template(data));
   },
 
   edit: function() {
-    this.$el.html(this.editTemplate(this.model.toJSON()));
+    var data = this.model.toJSON();
+    data.handle_class = this.model.get('active') ? 'handle active' : 'handle';
+    this.$el.html(this.editTemplate(data));
     this.$('.edit-note').focus();
   },
 
@@ -34,6 +40,10 @@ var NoteView = Backbone.View.extend({
 
   cancel: function() {
     this.render();
+  },
+
+  activate: function() {
+    this.collectionView.activate(this.model);
   },
 
   removeSelf: function() {

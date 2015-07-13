@@ -6,11 +6,16 @@ var NotebookView = Backbone.View.extend({
   },
 
   addCodeSection: function() {
-    this.collection.create({ sectionType: 'code' });
+    this.collection.create({ section_type: 'code' });
   },
 
   addNoteSection: function() {
-    this.collection.create({ sectionType: 'note' });
+    this.collection.create({ section_type: 'note' });
+  },
+
+  activate: function(model) {
+    this.collection.each(function(model) { model.set('active', false); })
+    model.set('active', 'true');
   },
 
   events: {
@@ -18,8 +23,9 @@ var NotebookView = Backbone.View.extend({
     'click .new-note-section': 'addNoteSection'
   },
 
-  listen: function() {
+  keyListen: function() {
     window.addEventListener('keypress', this.shortcut.bind(this));
+    return this;
   },
 
   shortcut: function(e) {
@@ -30,28 +36,40 @@ var NotebookView = Backbone.View.extend({
     }
   },
 
-  render: function() {  
-    this.collection.forEach(this.quickRenderOne);
+  newNoteView: function(opts) {
+    var noteView = new NoteView(opts);
+    noteView.collectionView = this;
+    return noteView;
+  },
+
+  newCodeView: function(opts) {
+    var codeView = new CodeView(opts);
+    codeView.collectionView = this;
+    return codeView;
+  },
+
+  render: function() {
+    this.collection.forEach(this.quickRenderOne.bind(this));
   },
 
   quickRenderOne: function(section) {
-    if (section.get('sectionType') === 'note') {
-      var noteView = new NoteView({ model: section });
+    if (section.get('section_type') === 'note') {
+      var noteView = this.newNoteView({ model: section });
       noteView.$el.appendTo(this.$('.notebook'))
-    } else if (section.get('sectionType') === 'code') {
-      var codeView = new CodeView({ model: section });
+    } else if (section.get('section_type') === 'code') {
+      var codeView = this.newCodeView({ model: section });
       codeView.$el.appendTo(this.$('.notebook'))
     }
   },
 
   renderOne: function(section) {
-    if (section.get('sectionType') === 'note') {
+    if (section.get('section_type') === 'note') {
       var noteView = new NoteView({ model: section });
       noteView.$el
                 .hide()
                 .appendTo(this.$('.notebook'))
                 .slideDown(500);
-    } else if (section.get('sectionType') === 'code') {
+    } else if (section.get('section_type') === 'code') {
       var codeView = new CodeView({ model: section });
       codeView.$el
                 .hide()

@@ -6,12 +6,14 @@ var CodeView = Backbone.View.extend({
 
   initialize: function() {
     this.template = Handlebars.compile($("#code-section-template").html());
+    this.listenTo(this.model, 'change:active', this.render);
     this.listenTo(this.model, 'destroy', this.removeSelf);
     this.render();
   },
 
   events: {
     'click .evaluate': 'evaluate',
+    'click .handle': 'activate',
     'click .remove': 'destroy',
     'keypress .input': 'shortcut'
   },
@@ -32,8 +34,12 @@ var CodeView = Backbone.View.extend({
     this.$('.output').show();
   },
 
-  p: function(something) {
-    this.$('.output-body').append($('<li>').html(something));
+  p: function(output) {
+    this.$('.output-body').append($('<li>').html(output));
+  },
+
+  activate: function() {
+    this.collectionView.activate(this.model);
   },
 
   destroy: function() {
@@ -42,7 +48,9 @@ var CodeView = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(this.template(this.model.toJSON()));
+    var data = this.model.toJSON();
+    data.handle_class = this.model.get('active') ? 'handle active' : 'handle';
+    this.$el.html(this.template(data));
   },
 
   focus: function() {
@@ -52,7 +60,7 @@ var CodeView = Backbone.View.extend({
   removeSelf: function() {
     this.$el.slideUp(500, function() {
       this.remove();
-    })
+    });
   },
 
   shortcut: function(e) {

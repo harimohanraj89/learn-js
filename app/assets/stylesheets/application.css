@@ -51,7 +51,7 @@ button {
   font-size: 16px;
   border-radius: 4px;
 
-  background:#6C5;
+  background:#6c5;
   color: #151;
 }
 
@@ -151,10 +151,10 @@ span.pre {
 
 .section {
   position: relative;
-  padding-left: 12px;
+  padding-left: 16px;
   padding-right: 24px;
   margin: 0 0 48px 0;
-  border-left: 4px solid #777;
+  /* border-left: 4px solid #777; */
 }
 
 .section .remove {
@@ -169,6 +169,21 @@ span.pre {
 
 .section .remove:hover {
   color: indianred;
+}
+
+.section .handle {
+  position: absolute;
+  top: 0;
+  left: 0px;
+  height: 100%;
+  width: 8px;
+  border-radius: 4px;
+  background: #777;
+  cursor: pointer;
+}
+
+.section .handle.active {
+  background: #6c5;
 }
 
 /* -------------------- */

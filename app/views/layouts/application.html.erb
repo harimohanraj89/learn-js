@@ -7,6 +7,7 @@
   <%= csrf_meta_tags %>
 
   <template id="code-section-template">
+    <div class="{{ handle_class }}"></div>
     <span class="remove">X</span>
     <textarea class="input">{{ content }}</textarea><br>
     <button class="evaluate">Evaluate</button>
@@ -17,11 +18,13 @@
   </template>
 
   <template id="note-template">
+    <div class="{{ handle_class }}"></div>
     <span class="remove">X</span>
     <p class="note">{{ content }}</p>
   </template>
 
   <template id="edit-note-template">
+    <div class="{{ handle_class }}"></div>
     <span class="remove">X</span>
     <textarea class="edit-note">{{content}}</textarea>
     <button class="save">Save</button>
